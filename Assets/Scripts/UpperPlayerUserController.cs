@@ -9,7 +9,8 @@ namespace UnityStandardAssets._2D
     {
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
-
+        public Vector3 respawnPoint;
+        public bool dead;
 
         private void Awake()
         {
@@ -34,6 +35,18 @@ namespace UnityStandardAssets._2D
             // Pass all parameters to the character control script.
             m_Character.Move(h, false, m_Jump);
             m_Jump = false;
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if(other.tag == "dropZone")
+            {
+                transform.position = respawnPoint;
+            }
+            if (other.tag == "checkpoint") 
+            {
+                respawnPoint = other.transform.position;
+            }
         }
     }
 }
