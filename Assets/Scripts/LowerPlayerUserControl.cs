@@ -40,7 +40,7 @@ namespace UnityStandardAssets._2D
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.tag == "dropZone")
+            if(other.tag == "dropZone" || other.gameObject.name == "Saw")
             {
                 transform.position = respawnPoint;
             }
