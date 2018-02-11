@@ -39,7 +39,7 @@ namespace UnityStandardAssets._2D
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.tag == "dropZone" || other.gameObject.name == "Saw")
+            if(other.tag == "dropZone" || other.gameObject.name == "Saw" || other.gameObject.name == "Enemy")
             {
                 transform.position = respawnPoint;
             }
@@ -48,5 +48,24 @@ namespace UnityStandardAssets._2D
                 respawnPoint = other.transform.position;
             }
         }
+
+        void OnTriggerStay2D(Collider2D col)
+        {     
+            Debug.Log("hello1111");
+            if(col.gameObject.name == "Hovering_platform")
+            {
+                Debug.Log("hello");
+                transform.parent = col.transform;
+            }
+        }
+    
+        void OnTriggerExit2D(Collider2D col)
+        {
+            if(col.gameObject.name == "Hovering_platform")
+            {
+                Debug.Log("hello2222");
+                transform.parent = null; 
+            }
+        } 
     }
 }
