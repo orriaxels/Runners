@@ -20,9 +20,10 @@ public class GameManager : MonoBehaviour {
 	public TextMeshProUGUI winMessage;
 	public TextMeshProUGUI countDownText;
 	public TextMeshProUGUI timer;
+	public TextMeshProUGUI timesUpText;
 
-	public UpperPlayerUserController upperPlayer;
-	public LowerPlayerUserControl lowerPlayer;
+	private UpperPlayerUserController upperPlayer;
+	private LowerPlayerUserControl lowerPlayer;
 
 	private bool gameOver;
 	private bool restart;
@@ -125,12 +126,15 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		if(upperSlider.value >= upperSlider.maxValue)
-		{			
+		{	
+			timesUpText.text = "";
 			winningScreen("BLUE");
+
 		}
 
 		if(lowerSlider.value >= lowerSlider.maxValue)
 		{
+			timesUpText.text = "";
 			winningScreen("RED");
 		}
 
