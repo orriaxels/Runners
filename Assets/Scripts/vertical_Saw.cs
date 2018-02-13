@@ -6,10 +6,7 @@ public class vertical_Saw : MonoBehaviour {
 	
 	public bool up;
 	public float rotationSpeed = 180;
-	
-	void Start () {
-		
-	}
+	public float speed = 1f;
 	
 	void Update () 
 	{
@@ -21,11 +18,11 @@ public class vertical_Saw : MonoBehaviour {
 
 		if(up)
 		{
-			sawPos.y += Time.deltaTime;
+			sawPos.y += Time.deltaTime * speed;
 		}
 		else
 		{
-			sawPos.y -= Time.deltaTime;
+			sawPos.y -= Time.deltaTime * speed;
 		}
 
 		transform.position = sawPos;

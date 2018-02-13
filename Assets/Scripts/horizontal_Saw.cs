@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class horizontal_Saw : MonoBehaviour {
 	public bool left;
+	public bool stationary;
+
 	public float rotationSpeed = 180;
-	
-	void Start () 
-	{	
-	}
+	public float speed = 1;
 	
 	void Update () 
 	{
@@ -18,13 +17,16 @@ public class horizontal_Saw : MonoBehaviour {
 		z -= rotationSpeed * Time.deltaTime;
 		sawRotation = Quaternion.Euler(0, 0, z);
 
-		if(left)
+		if(!stationary)
 		{
-			sawPos.x -= Time.deltaTime;
-		}
-		else
-		{
-			sawPos.x += Time.deltaTime;
+			if(left)
+			{
+				sawPos.x -= Time.deltaTime * speed;
+			}
+			else
+			{
+				sawPos.x += Time.deltaTime * speed;
+			}
 		}
 
 		transform.position = sawPos;

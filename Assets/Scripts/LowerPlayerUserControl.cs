@@ -11,36 +11,32 @@ namespace UnityStandardAssets._2D
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
         public Vector3 respawnPoint;
-        public bool dead;
 
         private void Awake()
         {
-            dead = false;
             m_Character = GetComponent<PlatformerCharacter2D>();
         }
-
 
         private void Update()
         {
             if (!m_Jump)
             {
-                // Read the jump input in Update so button presses aren't missed.
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump1");
             }
         }
 
         private void FixedUpdate()
         {
-            // Read the inputs.
+            
             float h = CrossPlatformInputManager.GetAxis("Horizontal1");
-            // Pass all parameters to the character control script.
+
             m_Character.Move(h, false, m_Jump);
             m_Jump = false;
         }
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.tag == "dropZone" || other.gameObject.name == "Saw" || other.gameObject.name == "Enemy")
+            if(other.tag == "death")
             {
                 transform.position = respawnPoint;
             }
@@ -48,6 +44,27 @@ namespace UnityStandardAssets._2D
             {
                 respawnPoint = other.transform.position;
             }
+        }
+
+        void OnTriggerStay2D(Collider2D col)
+        {     
+            if(col.tag == "movingPlatform")
+            {                
+                transform.parent = col.transform;
+            }
+        }
+    
+        void OnTriggerExit2D(Collider2D col)
+        {
+            if(col.tag == "movingPlatform")
+            {                
+                transform.parent = null; 
+            }
+        }
+
+        public float getX()
+        {
+            return transform.position.x;
         }
     }
 }
